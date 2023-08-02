@@ -6,9 +6,27 @@
 </head>
 <body>
 <h2>Your profile:</h2>
-<h4 th:text="'First name: ' + ${user.firstName}">First name</h4>
-<h4 th:text="'Last name: ' + ${user.lastName}">Last name</h4>
-<h4 th:text="'Username: ' + ${user.username}">Username</h4>
+<form th:method="PATCH" th:object="${user}" th:action="@{/personal-info/update}">
+    <label for="firstName">First name: </label>
+    <input type="text" th:field="*{firstName}" id="firstName">
+    <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" style="color:red">first name error</div>
+    <br/>
+
+    <label for="lastName">Last name: </label>
+    <input type="text" th:field="*{lastName}" id="lastName">
+    <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" style="color:red">last name error</div>
+    <br/>
+
+    <label for="username">Username: </label>
+    <input type="text" th:field="*{username}" id="username">
+    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color:red">username error</div>
+    <br/>
+
+    <input type="hidden" th:field="*{password}">
+    <input type="hidden" th:field="*{role}">
+    <input type="submit" value="Update">
+</form>
+
 <a th:href="@{/personal-info/shopping-cart}">
     Check my shopping cart
 </a>

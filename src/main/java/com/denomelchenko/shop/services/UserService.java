@@ -33,4 +33,12 @@ public class UserService {
         user.setRole("ROLE_USER");
         userRepository.save(user);
     }
+
+    @Transactional
+    public void update(User user, int id) {
+
+        user.setId(id);
+        user.setRole(user.getRole());
+        userRepository.save(user);
+    }
 }

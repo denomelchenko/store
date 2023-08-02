@@ -1,5 +1,6 @@
 package com.denomelchenko.shop.security;
 
+import com.denomelchenko.shop.confg.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -29,8 +30,9 @@ public class AuthProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String password = authentication.getCredentials().toString();
         UserDetails userDetails = userDetailsService.loadUserByUsername(authentication.getName());
-        if (passwordEncoder.matches(password, userDetails.getPassword()))
+        if (passwordEncoder.matches(password, userDetails.getPassword())) {
             return new UsernamePasswordAuthenticationToken(userDetails, password, Collections.emptyList());
+        }
         throw new BadCredentialsException("Bad credentials");
     }
 

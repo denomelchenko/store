@@ -12,7 +12,7 @@ import java.util.Collections;
  * @author Neil Alishev
  */
 public class UserDetailsImpl implements UserDetails {
-    private final User user;
+    private User user;
 
     public UserDetailsImpl(User person) {
         this.user = person;
@@ -58,5 +58,11 @@ public class UserDetailsImpl implements UserDetails {
     // Нужно, чтобы получать данные аутентифицированного пользователя
     public User getUser() {
         return this.user;
+    }
+
+    public void updateUser(User user) {
+        this.user.setFirstName(user.getFirstName());
+        this.user.setLastName(user.getLastName());
+        this.user.setUsername(user.getUsername());
     }
 }
