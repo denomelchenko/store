@@ -45,6 +45,6 @@ public class User {
     @Column(name = "role")
     private String role;
 
-    @ManyToMany(mappedBy = "users", fetch=FetchType.EAGER)
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private List<Item> items;
 }

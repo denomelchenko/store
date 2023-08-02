@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Shopping cart</title>
 </head>
 <body>
+<div th:if="${!items.isEmpty()}">
+    <ul th:each="item : ${items}">
+        <a th:href="@{/items/{id}(id=${item.id})}">
+            <li th:text="${item.name}"></li>
+            <br/>
+            <div th:text="${item.price}"></div>
+        </a>
+    </ul>
+    <form method="POST" th:action="@{/items/buy-all}">
+        <input type="submit" value="Buy all">
+    </form>
+</div>
 
+<div th:if="${items.isEmpty()}">
+    <h3>Your shopping cart is empty</h3>
+</div>
 </body>
 </html>

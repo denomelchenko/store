@@ -6,9 +6,9 @@
 </head>
 <body>
 <h2>Your profile:</h2>
-<div th:text="'First name: ' + ${user.firstName}">First name</div>
-<div th:text="'Last name: ' + ${user.lastName}">Last name</div>
-<div th:text="'Username: ' + ${user.username}">Username</div>
+<h4 th:text="'First name: ' + ${user.firstName}">First name</h4>
+<h4 th:text="'Last name: ' + ${user.lastName}">Last name</h4>
+<h4 th:text="'Username: ' + ${user.username}">Username</h4>
 <a th:href="@{/personal-info/shopping-cart}">
     Check my shopping cart
 </a>

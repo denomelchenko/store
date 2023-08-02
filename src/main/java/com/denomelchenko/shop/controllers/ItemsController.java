@@ -1,8 +1,9 @@
 package com.denomelchenko.shop.controllers;
 
+import com.denomelchenko.shop.models.User;
 import com.denomelchenko.shop.security.UserDetailsImpl;
 import com.denomelchenko.shop.services.ItemService;
-import com.denomelchenko.shop.services.UserService;
+import com.denomelchenko.shop.services.UserItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -16,12 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/items")
 public class ItemsController {
     private final ItemService itemService;
-    private final UserService userService;
-
+    private final UserItemService userItemService;
     @Autowired
-    public ItemsController(ItemService itemService, UserService userService) {
+    public ItemsController(ItemService itemService, UserItemService userItemService) {
         this.itemService = itemService;
-        this.userService = userService;
+        this.userItemService = userItemService;
     }
 
     @GetMapping("")
@@ -38,8 +38,16 @@ public class ItemsController {
 
     @PostMapping("/add-to-cart/{id}")
     public String addToCart(@PathVariable("id") int id) {
-        userService.addItemToCart(itemService.getById(id),
+        userItemService.addItemToCart(itemService.getById(id),
                 ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser());
         return "redirect:/items/{id}";
+    }
+
+    @PostMapping("/buy-all")
+    public String buyAllItems() {
+        userItemService.buyAllItemsFromCartUser(
+                ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser()
+        );
+        return "redirect:/personal-info";
     }
 }

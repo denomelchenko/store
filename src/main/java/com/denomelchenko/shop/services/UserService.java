@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,11 +32,5 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_USER");
         userRepository.save(user);
-    }
-
-    @Transactional
-    public void addItemToCart(Item item, User user) {
-        Hibernate.initialize(user.getItems().add(item));
-        Hibernate.initialize(item.getUsers().add(user));
     }
 }
