@@ -2,9 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="'hello, ' + ${user.username}"></title>
+    <title th:text="'Hello, ' + ${user.firstName} + ' ' + ${user.lastName}"></title>
 </head>
 <body>
-
+<h2>Your profile:</h2>
+<div th:text="'First name: ' + ${user.firstName}">First name</div>
+<div th:text="'Last name: ' + ${user.lastName}">Last name</div>
+<div th:text="'Username: ' + ${user.username}">Username</div>
+<a th:href="@{/personal-info/shopping-cart}">
+    Check my shopping cart
+</a>
 </body>
 </html>

@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "Item")
@@ -26,4 +27,12 @@ public class Item {
 
     @Column(name = "information")
     private String information;
+
+    @ManyToMany
+    @JoinTable(
+            name = "userItem",
+            joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> users;
 }

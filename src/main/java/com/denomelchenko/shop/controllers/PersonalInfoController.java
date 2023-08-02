@@ -10,10 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/personal-info")
-public class CabinetController {
+public class PersonalInfoController {
     @GetMapping()
     public String getInfo(Model model) {
         model.addAttribute("user", ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser());
         return "/personal-info/show";
+    }
+
+    @GetMapping("/shopping-cart")
+    public String shoppingCartPage(Model model) {
+        return "/personal-info/shopping-cart";
     }
 }

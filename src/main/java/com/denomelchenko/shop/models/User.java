@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "User")
@@ -43,4 +44,7 @@ public class User {
 
     @Column(name = "role")
     private String role;
+
+    @ManyToMany(mappedBy = "users", fetch=FetchType.EAGER)
+    private List<Item> items;
 }
