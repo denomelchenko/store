@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Items</title>
+</head>
+<body>
+<ul th:each="item:${items}">
+    <a th:href="@{/items/{id}(id=${item.id})}">
+        <li th:text="${item.name} + '    price:' + ${item.price} + '$'">item info</li>
+    </a>
+</ul>
+</body>
+</html>
