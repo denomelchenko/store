@@ -14,28 +14,30 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 public class User {
+    private static final String NOT_EMPTY_MESSAGE = "cannot be empty";
+
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "first_name")
-    @NotBlank
-    @Size(min = 2, max = 50, message = "First name length should be between 2 and 50 chars")
+    @NotBlank(message = NOT_EMPTY_MESSAGE)
+    @Size(min = 2, max = 50, message = "first name length should be between 2 and 50 chars")
     private String firstName;
 
-    @NotBlank
-    @Size(min = 2, max = 50, message = "Last name length should be between 2 and 50 chars")
     @Column(name = "last_name")
+    @NotBlank(message = NOT_EMPTY_MESSAGE)
+    @Size(min = 2, max = 50, message = "last name length should be between 2 and 50 chars")
     private String lastName;
 
-    @NotBlank
     @Column(name = "username")
-    @Size(min = 2, max = 100, message = "Username length should be between 2 and 100 chars")
+    @NotBlank(message = NOT_EMPTY_MESSAGE)
+    @Size(min = 2, max = 100, message = "username length should be between 2 and 100 chars")
     private String username;
 
-    @NotBlank
     @Column(name = "password")
+    @NotBlank(message = NOT_EMPTY_MESSAGE)
     @Size(min = 8, message = "password should be bigger than 8 chars")
     private String password;
 
