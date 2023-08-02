@@ -10,13 +10,19 @@
     <div th:if="${param.error}" style="color:red">Invalid username or password</div>
     <label for="username">Username:</label>
     <input type="text" name="username" id="username">
+    <br/>
+
     <label for="password">Password:</label>
     <input type="password" name="password" id="password">
+    <br/>
+
     <input type="submit" value="login">
 </form>
+
 <form method="GET" th:action="@{/auth/registration}">
-    <label for="register">Don`t have an account?</label>
-    <input type="submit" value="Sign up!" id="register">
+    <label for="registration">Don`t have an account?</label>
+    <input type="submit" value="Sign up!" id="registration">
 </form>
+
 </body>
 </html>

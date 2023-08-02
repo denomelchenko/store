@@ -10,7 +10,7 @@
         <a th:href="@{/items/{id}(id=${item.id})}">
             <li th:text="${item.name}"></li>
             <br/>
-            <div th:text="${item.price}"></div>
+            <div th:text="${item.price} + '$'"></div>
         </a>
     </ul>
     <form method="POST" th:action="@{/items/buy-all}">

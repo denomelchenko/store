@@ -10,5 +10,8 @@
         <li th:text="${item.name} + '    price:' + ${item.price} + '$'">item info</li>
     </a>
 </ul>
+<form method="GET" th:action="@{/personal-info}">
+    <input type="submit" value="Personal info">
+</form>
 </body>
 </html>
