@@ -29,10 +29,6 @@ public class Item {
     private String information;
 
     @ManyToMany
-    @JoinTable(
-            name = "userItem",
-            joinColumns = @JoinColumn(name = "item_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
+    @JoinTable(name = "userItem", joinColumns = @JoinColumn(name = "item_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
 }

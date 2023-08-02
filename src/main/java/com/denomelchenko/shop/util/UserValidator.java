@@ -31,10 +31,9 @@ public class UserValidator implements Validator {
     public void validate(Object target, Errors errors) {
         User user = (User) target;
         Optional<User> foundUser = userService.findByUsername(user.getUsername());
-        if (foundUser.isPresent() && !Objects.equals(
-                ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
-                        .getUser().getId(),
-                foundUser.get().getId()))
+        if (foundUser.isPresent() && !Objects.equals(((UserDetailsImpl) SecurityContextHolder.getContext()
+                        .getAuthentication().getPrincipal()).getUser().getId(),
+                        foundUser.get().getId()))
             errors.rejectValue("username", "", "User with this username already exist");
     }
 }

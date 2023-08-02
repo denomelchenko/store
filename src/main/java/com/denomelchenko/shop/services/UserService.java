@@ -36,7 +36,6 @@ public class UserService {
 
     @Transactional
     public void update(User user, int id) {
-
         user.setId(id);
         user.setRole(user.getRole());
         userRepository.save(user);

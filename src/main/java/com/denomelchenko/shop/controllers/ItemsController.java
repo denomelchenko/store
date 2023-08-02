@@ -1,6 +1,5 @@
 package com.denomelchenko.shop.controllers;
 
-import com.denomelchenko.shop.models.User;
 import com.denomelchenko.shop.security.UserDetailsImpl;
 import com.denomelchenko.shop.services.ItemService;
 import com.denomelchenko.shop.services.UserItemService;
@@ -8,25 +7,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/items")
 public class ItemsController {
     private final ItemService itemService;
     private final UserItemService userItemService;
+
     @Autowired
     public ItemsController(ItemService itemService, UserItemService userItemService) {
         this.itemService = itemService;
         this.userItemService = userItemService;
     }
 
-    @GetMapping("")
-    public String items(Model model) {
-        model.addAttribute("items", itemService.getAll());
+    @GetMapping("/page/{page}")
+    public String items(@PathVariable("page") int page, Model model,
+                        @RequestParam(name = "order-by", required = false) String orderBy) {
+        if (orderBy == null)
+            model.addAttribute("items", itemService.findAll(page));
+        else
+            model.addAttribute("items", itemService.findAll(page, orderBy));
+        model.addAttribute("page", page);
+        model.addAttribute("itemsPerPage", ItemService.ITEMS_PER_PAGE);
         return "/items/index";
     }
 

@@ -28,7 +28,9 @@ public class PersonalInfoController {
     private final UserValidator userValidator;
 
     @Autowired
-    public PersonalInfoController(UserItemService userItemService, UserService userService, UserValidator userValidator) {
+    public PersonalInfoController(UserItemService userItemService,
+                                  UserService userService,
+                                  UserValidator userValidator) {
         this.userItemService = userItemService;
         this.userService = userService;
         this.userValidator = userValidator;
@@ -37,7 +39,8 @@ public class PersonalInfoController {
     @GetMapping()
     public String getInfo(Model model) {
         model.addAttribute("user",
-                ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser());
+                ((UserDetailsImpl) SecurityContextHolder.getContext()
+                        .getAuthentication().getPrincipal()).getUser());
         return "/personal-info/show";
     }
 
@@ -51,15 +54,15 @@ public class PersonalInfoController {
 
     @PatchMapping("/update")
     public String update(@ModelAttribute("user") @Valid User user,
-                             BindingResult bindingResult,
-                             @AuthenticationPrincipal UserDetailsImpl userDetails) {
+                         BindingResult bindingResult,
+                         @AuthenticationPrincipal UserDetailsImpl userDetails) {
         userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult.getAllErrors());
             return "/personal-info/show";
         }
-        userService.update(user, ((UserDetailsImpl) SecurityContextHolder.getContext().
-                                    getAuthentication().getPrincipal()).getUser().getId());
+        userService.update(user, ((UserDetailsImpl) SecurityContextHolder.getContext()
+                                        .getAuthentication().getPrincipal()).getUser().getId());
         userDetails.updateUser(user);
         return "redirect:/personal-info";
     }
