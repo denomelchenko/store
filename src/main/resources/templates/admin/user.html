@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'User: 1' + ${user.username}">User</title>
+</head>
+<body>
+<h4 th:text="${user.username}">username</h4>
+<h4 th:text="${user.firstName}">first name</h4>
+<h4 th:text="${user.lastName}">last name</h4>
+<h4 th:text="${user.role}">role</h4>
+</body>
+</html>

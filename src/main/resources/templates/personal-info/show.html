@@ -21,15 +21,12 @@
     <input type="text" th:field="*{username}" id="username">
     <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color:red">username error</div>
     <br/>
-
-    <input type="hidden" th:field="*{password}">
-    <input type="hidden" th:field="*{role}">
     <input type="submit" value="Update!">
 </form>
 <form method="GET" th:action="@{/personal-info/shopping-cart}">
     <input type="submit" value="Check my shopping cart">
 </form>
-<form method="GET" th:action="@{/items}">
+<form method="GET" th:action="@{/items/page/0}">
         <input type="submit" value="Check items">
 </form>
 <form method="POST" th:action="@{/auth/logout}">

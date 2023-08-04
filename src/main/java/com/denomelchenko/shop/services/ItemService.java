@@ -4,7 +4,6 @@ import com.denomelchenko.shop.models.Item;
 import com.denomelchenko.shop.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

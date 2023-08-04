@@ -1,9 +1,7 @@
 package com.denomelchenko.shop.services;
 
-import com.denomelchenko.shop.models.Item;
 import com.denomelchenko.shop.models.User;
 import com.denomelchenko.shop.repositories.UserRepository;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -41,7 +39,10 @@ public class UserService {
     @Transactional
     public void update(User user, int id) {
         user.setId(id);
-        user.setRole(user.getRole());
         userRepository.save(user);
+    }
+
+    public User getById(int id) {
+        return userRepository.findById(id).orElse(null);
     }
 }

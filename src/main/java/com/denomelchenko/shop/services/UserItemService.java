@@ -3,7 +3,6 @@ package com.denomelchenko.shop.services;
 import com.denomelchenko.shop.dao.UserItemDAO;
 import com.denomelchenko.shop.models.Item;
 import com.denomelchenko.shop.models.User;
-import com.denomelchenko.shop.repositories.ItemRepository;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
