@@ -4,10 +4,14 @@ import com.denomelchenko.shop.security.UserDetailsImpl;
 import com.denomelchenko.shop.services.ItemService;
 import com.denomelchenko.shop.services.UserItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/items")
@@ -23,13 +27,16 @@ public class ItemsController {
 
     @GetMapping("/page/{page}")
     public String items(@PathVariable("page") int page, Model model,
-                        @RequestParam(name = "order-by", required = false) String orderBy) {
-        if (orderBy == null)
-            model.addAttribute("items", itemService.findAll(page));
-        else
-            model.addAttribute("items", itemService.findAll(page, orderBy));
-        model.addAttribute("page", page);
-        model.addAttribute("itemsPerPage", ItemService.ITEMS_PER_PAGE);
+                        @RequestParam(value = "sort-by", required = false) String sorting) {
+        PageRequest pageRequest;
+        if (sorting != null) {
+            pageRequest = PageRequest.of(page, ItemService.ITEMS_PER_PAGE, Sort.by(sorting));
+        } else {
+            pageRequest = PageRequest.of(page, ItemService.ITEMS_PER_PAGE);
+
+        }
+        model.addAttribute("items", itemService.findAll(pageRequest));
+        model.addAttribute("pageRequest", pageRequest);
         return "/items/index";
     }
 

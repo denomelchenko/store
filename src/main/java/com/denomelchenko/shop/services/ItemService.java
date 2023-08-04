@@ -19,12 +19,8 @@ public class ItemService {
         this.itemRepository = itemRepository;
     }
 
-    public List<Item> findAll(int page) {
-        return itemRepository.findAll(PageRequest.of(page - 1, ITEMS_PER_PAGE)).getContent();
-    }
-
-    public List<Item> findAll(int page, String orderBy) {
-        return itemRepository.findAll(PageRequest.of(page - 1, 15, Sort.by(orderBy))).getContent();
+    public List<Item> findAll(PageRequest pageRequest) {
+        return itemRepository.findAll(pageRequest).getContent();
     }
 
     public Item getById(int id) {
