@@ -27,6 +27,10 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    public List<User> getAll() {
+        return userRepository.findAll();
+    }
+
     @Transactional
     public void register(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
