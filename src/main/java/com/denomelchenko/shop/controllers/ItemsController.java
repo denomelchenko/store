@@ -24,8 +24,7 @@ public class ItemsController {
     }
 
     @GetMapping("/page/{page}")
-    public String items(@PathVariable("page") int page, Model model,
-                        @RequestParam(value = "sort-by", required = false) String sorting) {
+    public String items(@PathVariable("page") int page, Model model, @RequestParam(value = "sort-by", required = false) String sorting) {
         PageRequest pageRequest;
         if (sorting != null) {
             pageRequest = PageRequest.of(page, ItemService.ITEMS_PER_PAGE, Sort.by(sorting));
@@ -33,8 +32,7 @@ public class ItemsController {
             pageRequest = PageRequest.of(page, ItemService.ITEMS_PER_PAGE);
 
         }
-        if (((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
-                .getUser().getRole().equals("ROLE_ADMIN")) {
+        if (((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser().getRole().equals("ROLE_ADMIN")) {
             model.addAttribute("admin", true);
         }
         model.addAttribute("items", itemService.findAllByPageRequest(pageRequest));
@@ -50,16 +48,13 @@ public class ItemsController {
 
     @PostMapping("/add-to-cart/{id}")
     public String addToCart(@PathVariable("id") int id) {
-        userItemService.addItemToCart(itemService.getById(id),
-                ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser());
+        userItemService.addItemToCart(itemService.getById(id), ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser());
         return "redirect:/items/{id}";
     }
 
     @PostMapping("/buy-all")
     public String buyAllItems() {
-        userItemService.buyAllItemsFromCartUser(
-                ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser()
-        );
+        userItemService.buyAllItemsFromCartUser(((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser());
         return "redirect:/personal-info";
     }
 }

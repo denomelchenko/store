@@ -1,7 +1,5 @@
 package com.denomelchenko.shop.confg;
 
-import com.denomelchenko.shop.models.User;
-import com.denomelchenko.shop.security.UserDetailsImpl;
 import com.denomelchenko.shop.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

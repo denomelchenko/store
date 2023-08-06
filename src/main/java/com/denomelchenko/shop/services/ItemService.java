@@ -5,6 +5,7 @@ import com.denomelchenko.shop.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,5 +29,10 @@ public class ItemService {
 
     public Item getById(int id) {
         return itemRepository.findById(id).orElse(null);
+    }
+
+    @Transactional
+    public void deleteById(int id) {
+        itemRepository.deleteById(id);
     }
 }

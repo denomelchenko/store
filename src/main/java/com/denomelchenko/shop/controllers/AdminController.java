@@ -43,6 +43,12 @@ public class AdminController {
         return "/admin/users/index";
     }
 
+    @DeleteMapping("/items/{id}/delete")
+    public String deleteItem(@PathVariable("id") int id) {
+        itemService.deleteById(id);
+        return "redirect:/admin/items";
+    }
+
     @GetMapping("/users/{id}")
     public String getUserInfo(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.getById(id));
@@ -54,7 +60,7 @@ public class AdminController {
         User user = userService.getById(id);
         if (user.getRole().equals("ROLE_USER")) {
             user.setRole("ROLE_ADMIN");
-        } else if (user.getRole().equals("ROLE_ADMIN")){
+        } else if (user.getRole().equals("ROLE_ADMIN")) {
             user.setRole("ROLE_USER");
         }
         userService.update(user, id);

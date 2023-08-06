@@ -29,9 +29,7 @@ public class PersonalInfoController {
     private final UserValidator userValidator;
 
     @Autowired
-    public PersonalInfoController(UserItemService userItemService,
-                                  UserService userService,
-                                  ModelMapper modelMapper, UserValidator userValidator) {
+    public PersonalInfoController(UserItemService userItemService, UserService userService, ModelMapper modelMapper, UserValidator userValidator) {
         this.userItemService = userItemService;
         this.userService = userService;
         this.modelMapper = modelMapper;
@@ -40,26 +38,19 @@ public class PersonalInfoController {
 
     @GetMapping()
     public String getInfo(Model model) {
-        model.addAttribute("user",
-                convertToUserDTO(((UserDetailsImpl) SecurityContextHolder.getContext()
-                        .getAuthentication().getPrincipal()).getUser()));
+        model.addAttribute("user", convertToUserDTO(((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser()));
         return "/personal-info/show";
     }
 
     @GetMapping("/shopping-cart")
     public String shoppingCartPage(Model model) {
-        model.addAttribute("items",
-                userItemService.getAllItemsInCart(((UserDetailsImpl) SecurityContextHolder.getContext()
-                        .getAuthentication().getPrincipal()).getUser()));
+        model.addAttribute("items", userItemService.getAllItemsInCart(((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser()));
         return "/personal-info/shopping-cart";
     }
 
     @PatchMapping("/update")
-    public String update(@ModelAttribute("user") @Valid UserDTO userDTO,
-                         BindingResult bindingResult,
-                         @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        User currentUser = ((UserDetailsImpl) SecurityContextHolder.getContext()
-                .getAuthentication().getPrincipal()).getUser();
+    public String update(@ModelAttribute("user") @Valid UserDTO userDTO, BindingResult bindingResult, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        User currentUser = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
         User user = raiseUp(convertToUser(userDTO), currentUser);
         userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {

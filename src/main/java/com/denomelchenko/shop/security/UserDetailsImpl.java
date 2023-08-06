@@ -12,7 +12,7 @@ import java.util.Collections;
  * @author Neil Alishev
  */
 public class UserDetailsImpl implements UserDetails {
-    private User user;
+    private final User user;
 
     public UserDetailsImpl(User person) {
         this.user = person;
@@ -20,8 +20,6 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // SHOW_ACCOUNT, WITHDRAW_MONEY, SEND_MONEY
-        // ROLE_ADMIN, ROLE_USER - это роли
         return Collections.singletonList(new SimpleGrantedAuthority(user.getRole()));
     }
 
@@ -55,7 +53,6 @@ public class UserDetailsImpl implements UserDetails {
         return true;
     }
 
-    // Нужно, чтобы получать данные аутентифицированного пользователя
     public User getUser() {
         return this.user;
     }
