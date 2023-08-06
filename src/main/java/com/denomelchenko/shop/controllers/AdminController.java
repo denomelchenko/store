@@ -1,5 +1,6 @@
 package com.denomelchenko.shop.controllers;
 
+import com.denomelchenko.shop.models.User;
 import com.denomelchenko.shop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,16 @@ public class AdminController {
     @GetMapping("/users/{id}")
     public String getUserInfo(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.getById(id));
+        return "/admin/user";
+    }
+
+    @PatchMapping("/users/{id}/update-role")
+    public String updateRole(@PathVariable("id") int id, @ModelAttribute("user") User user) {
+        if (user.getRole().equals("ROLE_USER")) {
+            user.setRole("ROLE_ADMIN");
+        } else if (user.getRole().equals("ROLE_ADMIN")){
+            user.setRole("ROLE_USER");
+        }
         return "/admin/user";
     }
 }

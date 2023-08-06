@@ -63,7 +63,6 @@ public class PersonalInfoController {
         User user = raiseUp(convertToUser(userDTO), currentUser);
         userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult.getAllErrors());
             return "/personal-info/show";
         }
         userService.update(user, currentUser.getId());

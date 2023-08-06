@@ -4,6 +4,7 @@ import com.denomelchenko.shop.models.User;
 import com.denomelchenko.shop.security.UserDetailsImpl;
 import com.denomelchenko.shop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -26,13 +27,20 @@ public class UserValidator implements Validator {
         return clazz.equals(User.class);
     }
 
-    @Override
     public void validate(Object target, Errors errors) {
         User user = (User) target;
         Optional<User> foundUser = userService.findByUsername(user.getUsername());
-        if (foundUser.isPresent() && !Objects.equals(((UserDetailsImpl) SecurityContextHolder.getContext()
-                        .getAuthentication().getPrincipal()).getUser().getId(),
-                        foundUser.get().getId()))
-            errors.rejectValue("username", "", "User with this username already exist");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+
+        if (foundUser.isPresent()) {
+            if (principal instanceof UserDetailsImpl userDetails) {
+                if (!Objects.equals(userDetails.getUser().getId(), foundUser.get().getId())) {
+                    errors.rejectValue("username", "", "User with this username already exists");
+                }
+            } else {
+                errors.rejectValue("username", "", "User with this username already exists");
+            }
+        }
     }
 }
