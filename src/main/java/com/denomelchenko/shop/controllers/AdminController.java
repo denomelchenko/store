@@ -30,12 +30,14 @@ public class AdminController {
     }
 
     @PatchMapping("/users/{id}/update-role")
-    public String updateRole(@PathVariable("id") int id, @ModelAttribute("user") User user) {
+    public String updateRole(@PathVariable("id") int id) {
+        User user = userService.getById(id);
         if (user.getRole().equals("ROLE_USER")) {
             user.setRole("ROLE_ADMIN");
         } else if (user.getRole().equals("ROLE_ADMIN")){
             user.setRole("ROLE_USER");
         }
-        return "/admin/user";
+        userService.update(user, id);
+        return "redirect:/admin/users";
     }
 }
