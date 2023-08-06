@@ -6,10 +6,10 @@
 </head>
 <body>
 <ol>
-  <li th:each="item : ${items}">
-    <a th:text="${item.name}" th:href="@{/admin/items/{id}(id=${item.id})}">
-    </a>
-  </li>
+    <li th:each="item : ${items}">
+        <a th:text="${item.name}" th:href="@{/admin/items/{id}(id=${item.id})}">
+        </a>
+    </li>
 </ol>
 </body>
 </html>

@@ -28,19 +28,25 @@ public class AdminController {
     @GetMapping("/items")
     public String getAllItems(Model model) {
         model.addAttribute("items", itemService.findAll());
-        return "/admin/items";
+        return "/admin/items/index";
+    }
+
+    @GetMapping("/items/{id}")
+    public String getItemInfo(@PathVariable("id") int id, Model model) {
+        model.addAttribute("item", itemService.getById(id));
+        return "/admin/items/show";
     }
 
     @GetMapping("/users")
     public String getAllUsers(Model model) {
         model.addAttribute("users", userService.getAll());
-        return "/admin/users";
+        return "/admin/users/index";
     }
 
     @GetMapping("/users/{id}")
     public String getUserInfo(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.getById(id));
-        return "/admin/user";
+        return "/admin/users/show";
     }
 
     @PatchMapping("/users/{id}/update-role")
