@@ -1,12 +1,17 @@
 package com.denomelchenko.shop.controllers;
 
 import com.denomelchenko.shop.models.User;
+import com.denomelchenko.shop.security.UserDetailsImpl;
 import com.denomelchenko.shop.services.ItemService;
 import com.denomelchenko.shop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Objects;
 
 @RequestMapping("/admin")
 @Controller
@@ -39,7 +44,9 @@ public class AdminController {
 
     @GetMapping("/users")
     public String getAllUsers(Model model) {
-        model.addAttribute("users", userService.getAll());
+        List<User> usersWithoutCurrent = userService.getAll();
+        usersWithoutCurrent.removeIf(user -> Objects.equals(user.getId(), ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser().getId()));
+        model.addAttribute("users", usersWithoutCurrent);
         return "/admin/users/index";
     }
 
@@ -64,6 +71,12 @@ public class AdminController {
             user.setRole("ROLE_USER");
         }
         userService.update(user, id);
+        return "redirect:/admin/users";
+    }
+
+    @DeleteMapping("/users/{id}/delete")
+    public String deleteUser(@PathVariable("id") int id) {
+        userService.deleteById(id);
         return "redirect:/admin/users";
     }
 }

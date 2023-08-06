@@ -16,5 +16,9 @@
 <form th:method="PATCH" th:if="${user.role.equals('ROLE_ADMIN')}" th:object="${user}" th:action="@{|/admin/users/${user.id}/update-role|}">
     <input type="submit" value="SET USER ROLE">
 </form>
+
+<form th:method="DELETE" th:action="@{|/admin/users/${user.id}/delete|}">
+    <input type="submit" value="Delete">
+</form>
 </body>
 </html>

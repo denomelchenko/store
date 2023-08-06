@@ -42,6 +42,11 @@ public class UserService {
         userRepository.save(user);
     }
 
+    @Transactional
+    public void deleteById(int id) {
+        userRepository.deleteById(id);
+    }
+
     public User getById(int id) {
         return userRepository.findById(id).orElse(null);
     }
