@@ -11,5 +11,9 @@
 <h4>
     <a th:href="@{/admin/items}">Items</a>
 </h4>
+
+<form method="GET" th:action="@{/items/page/0}">
+    <input type="submit" value="Back to main">
+</form>
 </body>
 </html>

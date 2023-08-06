@@ -38,7 +38,12 @@ public class PersonalInfoController {
 
     @GetMapping()
     public String getInfo(Model model) {
-        model.addAttribute("user", convertToUserDTO(((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser()));
+        User user = ((UserDetailsImpl) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal()).getUser();
+        model.addAttribute("user", convertToUserDTO(user));
+        if (user.getRole().equals("ROLE_ADMIN")) {
+            model.addAttribute("admin", true);
+        }
         return "/personal-info/show";
     }
 
@@ -51,7 +56,8 @@ public class PersonalInfoController {
     }
 
     @PatchMapping("/update")
-    public String update(@ModelAttribute("user") @Valid UserDTO userDTO, BindingResult bindingResult, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public String update(@ModelAttribute("user") @Valid UserDTO userDTO, BindingResult bindingResult,
+                         @AuthenticationPrincipal UserDetailsImpl userDetails) {
         User currentUser = ((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
         User user = raiseUp(convertToUser(userDTO), currentUser);
         userValidator.validate(user, bindingResult);

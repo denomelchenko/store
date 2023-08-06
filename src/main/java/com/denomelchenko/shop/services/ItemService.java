@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class ItemService {
     private final ItemRepository itemRepository;
-    public static final int ITEMS_PER_PAGE = 15;
+    public static final int ITEMS_PER_PAGE = 30;
 
     @Autowired
     public ItemService(ItemRepository itemRepository) {
@@ -30,6 +30,10 @@ public class ItemService {
     public Item getById(int id) {
         return itemRepository.findById(id).orElse(null);
     }
+
+//    public List<Item> findByNameContaining(String name) {
+//        return itemRepository.findByNameContaining(name);
+//    }
 
     @Transactional
     public void deleteById(int id) {

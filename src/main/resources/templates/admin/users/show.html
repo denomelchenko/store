@@ -5,10 +5,10 @@
     <title th:text="'User: 1' + ${user.username}">User</title>
 </head>
 <body>
-<h4 th:text="'Username: ' + ${user.username}">username</h4>
-<h4 th:text="'First name: ' + ${user.firstName}">first name</h4>
-<h4 th:text="'Last name: ' + ${user.lastName}">last name</h4>
-<h4 th:text="'Role: ' + ${user.role}">role</h4>
+<h6 th:text="'Username: ' + ${user.username}">username</h6>
+<h6 th:text="'First name: ' + ${user.firstName}">first name</h6>
+<h6 th:text="'Last name: ' + ${user.lastName}">last name</h6>
+<h6 th:text="'Role: ' + ${user.role}">role</h6>
 <form th:method="PATCH" th:if="${user.role.equals('ROLE_USER')}" th:object="${user}" th:action="@{|/admin/users/${user.id}/update-role|}">
     <input type="submit" value="Set role admin">
 </form>

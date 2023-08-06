@@ -13,11 +13,19 @@
     </li>
 </ul>
 
+<!--<form th:method="GET" th:object="${item}" th:action="@{items/search}">-->
+<!--    <label for="name">Item name:</label>-->
+<!--    <input type="text" th:field="*{name}" id="name">-->
+<!--    <input type="submit" value="Search">-->
+<!--</form>-->
+
 <div th:if="${pageRequest.getPageNumber() > 0}" style="text-align:left">
     <a th:if="${pageRequest.getSort().toString().equals('UNSORTED')}"
-       th:href="@{|/items/page/${pageRequest.getPageNumber() - 1}|}"><-previous page</a>
+       th:href="@{|/items/page/${pageRequest.getPageNumber() - 1}|}"
+       th:text="${pageRequest.getPageNumber()}"><-previous page</a>
     <a th:unless="${pageRequest.getSort().toString().equals('UNSORTED')}"
-       th:href="@{|/items/page/${pageRequest.getPageNumber() - 1}?sort-by=${pageRequest.getSort().get().findFirst().get().getProperty()}|}"><-previous
+       th:href="@{|/items/page/${pageRequest.getPageNumber() - 1}?sort-by=${pageRequest.getSort().get().findFirst().get().getProperty()}|}"
+       th:text="${pageRequest.getPageNumber()}">
         page</a>
 </div>
 
@@ -29,7 +37,8 @@
 
 <div th:if="${items.size() > 0 && items.size() % pageRequest.getPageSize() == 0}" style="text-align:right">
     <a th:if="${pageRequest.getSort().toString().equals('UNSORTED')}"
-       th:href="@{|/items/page/${pageRequest.getPageNumber() + 1}|}">next page-></a>
+       th:href="@{|/items/page/${pageRequest.getPageNumber() + 1}|}"
+       th:text="${pageRequest.getPageNumber() + 2}"></a>
     <a th:unless="${pageRequest.getSort().toString().equals('UNSORTED')}"
        th:href="@{|/items/page/${pageRequest.getPageNumber() + 1}?sort-by=${pageRequest.getSort().get().findFirst().get().getProperty()}|}">next
         page-></a>
@@ -38,11 +47,6 @@
 <div style="position: absolute; top: 10px; right: 10px;">
     <form method="GET" th:action="@{/personal-info}">
         <input type="submit" value="Check personal info" style="width: 200px;">
-    </form>
-</div>
-<div th:if="${admin}">
-    <form method="GET" th:action="@{/admin}">
-        <input type="submit" value="ADMIN PAGE">
     </form>
 </div>
 </body>

@@ -26,6 +26,13 @@
 <form method="GET" th:action="@{/personal-info/shopping-cart}">
     <input type="submit" value="Check my shopping cart">
 </form>
+
+<div th:if="${admin}">
+    <form method="GET" th:action="@{/admin}">
+        <input type="submit" value="Admin page">
+    </form>
+</div>
+
 <form method="GET" th:action="@{/items/page/0}">
         <input type="submit" value="Check items">
 </form>

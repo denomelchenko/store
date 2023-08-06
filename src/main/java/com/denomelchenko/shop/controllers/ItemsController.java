@@ -30,10 +30,6 @@ public class ItemsController {
             pageRequest = PageRequest.of(page, ItemService.ITEMS_PER_PAGE, Sort.by(sorting));
         } else {
             pageRequest = PageRequest.of(page, ItemService.ITEMS_PER_PAGE);
-
-        }
-        if (((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser().getRole().equals("ROLE_ADMIN")) {
-            model.addAttribute("admin", true);
         }
         model.addAttribute("items", itemService.findAllByPageRequest(pageRequest));
         model.addAttribute("pageRequest", pageRequest);
