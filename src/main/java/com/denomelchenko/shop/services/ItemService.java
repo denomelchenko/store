@@ -18,8 +18,12 @@ public class ItemService {
         this.itemRepository = itemRepository;
     }
 
-    public List<Item> findAll(PageRequest pageRequest) {
+    public List<Item> findAllByPageRequest(PageRequest pageRequest) {
         return itemRepository.findAll(pageRequest).getContent();
+    }
+
+    public List<Item> findAll() {
+        return itemRepository.findAll();
     }
 
     public Item getById(int id) {

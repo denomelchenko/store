@@ -40,5 +40,10 @@
         <input type="submit" value="Check personal info" style="width: 200px;">
     </form>
 </div>
+<div th:if="${admin}">
+    <form method="GET" th:action="@{/admin}">
+        <input type="submit" value="ADMIN PAGE">
+    </form>
+</div>
 </body>
 </html>

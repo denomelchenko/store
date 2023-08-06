@@ -1,6 +1,7 @@
 package com.denomelchenko.shop.controllers;
 
 import com.denomelchenko.shop.models.User;
+import com.denomelchenko.shop.services.ItemService;
 import com.denomelchenko.shop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,10 +12,23 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class AdminController {
     private final UserService userService;
+    private final ItemService itemService;
 
     @Autowired
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, ItemService itemService) {
         this.userService = userService;
+        this.itemService = itemService;
+    }
+
+    @GetMapping
+    public String adminPage() {
+        return "/admin/admin-page";
+    }
+
+    @GetMapping("/items")
+    public String getAllItems(Model model) {
+        model.addAttribute("items", itemService.findAll());
+        return "/admin/items";
     }
 
     @GetMapping("/users")
