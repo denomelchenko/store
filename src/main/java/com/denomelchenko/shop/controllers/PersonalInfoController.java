@@ -44,7 +44,9 @@ public class PersonalInfoController {
 
     @GetMapping("/shopping-cart")
     public String shoppingCartPage(Model model) {
-        model.addAttribute("items", userItemService.getAllItemsInCart(((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser()));
+        model.addAttribute("items", userItemService.getAllItemsInCart((
+                (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser()
+        ));
         return "/personal-info/shopping-cart";
     }
 

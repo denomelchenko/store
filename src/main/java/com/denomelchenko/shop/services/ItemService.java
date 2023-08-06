@@ -35,4 +35,13 @@ public class ItemService {
     public void deleteById(int id) {
         itemRepository.deleteById(id);
     }
+
+    public void addItem(Item item) {
+        itemRepository.save(item);
+    }
+
+    public void update(Item item, int id) {
+        item.setId(id);
+        itemRepository.save(item);
+    }
 }

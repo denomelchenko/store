@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add item</title>
+</head>
+<body>
+<form th:method="POST" th:object="${item}" th:action="@{/admin/items/add}">
+  <label for="name">Name: </label>
+  <input type="text" th:field="*{name}" id="name">
+  <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red">name errors</div>
+  <br/>
+  <label for="price">Price in dollars: </label>
+  <input type="text" th:field="*{price}" id="price">
+  <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" style="color:red">price errors</div>
+  <br/>
+  <label for="description">Description: </label>
+  <input type="text" th:field="*{information}" id="description">
+  <div th:if="${#fields.hasErrors('information')}" th:errors="*{information}" style="color:red">information errors</div>
+  <br/>
+  <input type="submit" value="Add">
+</form>
+</body>
+</html>

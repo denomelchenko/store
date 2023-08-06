@@ -1,15 +1,19 @@
 package com.denomelchenko.shop.controllers;
 
+import com.denomelchenko.shop.models.Item;
 import com.denomelchenko.shop.models.User;
 import com.denomelchenko.shop.security.UserDetailsImpl;
 import com.denomelchenko.shop.services.ItemService;
+import com.denomelchenko.shop.services.UserItemService;
 import com.denomelchenko.shop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,11 +22,13 @@ import java.util.Objects;
 public class AdminController {
     private final UserService userService;
     private final ItemService itemService;
+    private final UserItemService userItemService;
 
     @Autowired
-    public AdminController(UserService userService, ItemService itemService) {
+    public AdminController(UserService userService, ItemService itemService, UserItemService userItemService) {
         this.userService = userService;
         this.itemService = itemService;
+        this.userItemService = userItemService;
     }
 
     @GetMapping
@@ -50,6 +56,30 @@ public class AdminController {
         return "/admin/users/index";
     }
 
+    @GetMapping("/items/add")
+    public String addItemPage(@ModelAttribute("item") Item item) {
+        return "/admin/items/add";
+    }
+
+    @PostMapping("/items/add")
+    public String addItem(@ModelAttribute("item") @Valid Item item, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/admin/items/add";
+        }
+        itemService.addItem(item);
+        return "redirect:/admin/items";
+    }
+
+    @PatchMapping("/items/{id}/edit")
+    public String editItem(@PathVariable("id") int id, @ModelAttribute("item") @Valid Item item,
+                           BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/admin/items/show";
+        }
+        itemService.update(item, id);
+        return "redirect:/admin/items/{id}";
+    }
+
     @DeleteMapping("/items/{id}/delete")
     public String deleteItem(@PathVariable("id") int id) {
         itemService.deleteById(id);
@@ -58,7 +88,9 @@ public class AdminController {
 
     @GetMapping("/users/{id}")
     public String getUserInfo(@PathVariable("id") int id, Model model) {
+        User user = userService.getById(id);
         model.addAttribute("user", userService.getById(id));
+        model.addAttribute("items", userItemService.getAllItemsInCart(user));
         return "/admin/users/show";
     }
 

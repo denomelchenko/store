@@ -5,14 +5,24 @@
     <title th:text="${item.name}"></title>
 </head>
 <body>
-<div th:text="'Name: ' + ${item.name}">name</div>
-<div th:text="'Price: ' + ${item.price}">price</div>
-<div th:text="'Information: ' + ${item.information}">information</div>
-<form>
-
+<form th:method="PATCH" th:object="${item}" th:action="@{|/admin/items/${item.id}/edit|}">
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}" id="name">
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red">name errors</div>
+    <br/>
+    <label for="price">Price in dollars: </label>
+    <input type="text" th:field="*{price}" id="price">
+    <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" style="color:red">price errors</div>
+    <br/>
+    <label for="description">Description: </label>
+    <input type="text" th:field="*{information}" id="description">
+    <div th:if="${#fields.hasErrors('information')}" th:errors="*{information}" style="color:red">information errors</div>
+    <br/>
+    <input type="submit" value="Edit">
 </form>
+
 <form th:method="DELETE" th:action="@{|/admin/items/${item.id}/delete|}">
-    <input type="submit" value="Delete">
+    <input type="submit" value="Delete item">
 </form>
 </body>
 </html>

@@ -10,15 +10,24 @@
 <h4 th:text="'Last name: ' + ${user.lastName}">last name</h4>
 <h4 th:text="'Role: ' + ${user.role}">role</h4>
 <form th:method="PATCH" th:if="${user.role.equals('ROLE_USER')}" th:object="${user}" th:action="@{|/admin/users/${user.id}/update-role|}">
-    <input type="submit" value="SET ADMIN ROLE">
+    <input type="submit" value="Set role admin">
 </form>
 
 <form th:method="PATCH" th:if="${user.role.equals('ROLE_ADMIN')}" th:object="${user}" th:action="@{|/admin/users/${user.id}/update-role|}">
-    <input type="submit" value="SET USER ROLE">
+    <input type="submit" value="Set role user">
 </form>
 
+<div th:unless="${items.isEmpty()}">
+    Items in cart:
+    <ol>
+        <li th:each="item:${items}">
+            <div th:text="'Name: ' + ${item.name}  + ' price: ' + ${item.price}"></div>
+        </li>
+    </ol>
+</div>
+
 <form th:method="DELETE" th:action="@{|/admin/users/${user.id}/delete|}">
-    <input type="submit" value="Delete">
+    <input type="submit" value="Delete user!">
 </form>
 </body>
 </html>
