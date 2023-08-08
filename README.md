@@ -44,7 +44,7 @@ Standard users can make use of the following functionalities:
 - Hibernate (ORM)
 
 ## Running the Project
-1. Clone the repository: git clone https://github.com/yourusername/project-name.git
+1. Clone the repository: git clone https://github.com/denomelchenko/store.git.
 1. Install the required dependencies.
 1. Launch the application.
 1. Open a web browser and navigate to http://localhost:8080.
