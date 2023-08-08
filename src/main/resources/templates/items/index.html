@@ -7,9 +7,9 @@
 <body>
 <ul>
     <li th:each="item:${items}">
-        <a th:href="@{/items/{id}(id=${item.id})}"
-           th:text="${item.name} + ' Price: ' + ${item.price} + '$'">
-        </a>
+        <form method="GET" th:action="@{/items/{id}(id=${item.id})}">
+            <input type="submit" th:value="'Name: ' + ${item.name} + ' Price: ' + ${item.price} + '$'">
+        </form>
     </li>
 </ul>
 
@@ -40,8 +40,8 @@
        th:href="@{|/items/page/${pageRequest.getPageNumber() + 1}|}"
        th:text="${pageRequest.getPageNumber() + 2}"></a>
     <a th:unless="${pageRequest.getSort().toString().equals('UNSORTED')}"
-       th:href="@{|/items/page/${pageRequest.getPageNumber() + 1}?sort-by=${pageRequest.getSort().get().findFirst().get().getProperty()}|}">next
-        page-></a>
+       th:href="@{|/items/page/${pageRequest.getPageNumber() + 1}?sort-by=${pageRequest.getSort().get().findFirst().get().getProperty()}|}"
+       th:text="${pageRequest.getPageNumber() + 2}"></a>
 </div>
 
 <div style="position: absolute; top: 10px; right: 10px;">
